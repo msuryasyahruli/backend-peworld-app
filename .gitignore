@@ -1,0 +1,7 @@
+node_modules 
+.env 
+.vscode 
+upload
+CATEGORY.postman_collection.json
+ORDERS.postman_collection.json
+PRODUCTS.postman_collection.json
