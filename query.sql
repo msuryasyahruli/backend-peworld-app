@@ -85,8 +85,8 @@ CREATE TABLE
         working_end VARCHAR(255),
         description VARCHAR(255),
         create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        WorkerID VARCHAR,
-        FOREIGN KEY (WorkerID) REFERENCES worker(worker_id)
+        workerid VARCHAR,
+        FOREIGN KEY (workerid) REFERENCES worker(worker_id)
     );
 
 INSERT INTO
@@ -97,7 +97,7 @@ INSERT INTO
         working_start,
         working_end,
         description,
-        WorkerID
+        workerid
     )
 VALUES (
         '68d8210d-7936-4b70-9bce-71cf4d57c0d4',

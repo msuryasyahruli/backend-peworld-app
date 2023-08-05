@@ -14,10 +14,9 @@ const portfolioController = {
   getAllPortfolio: async (req, res) => {
     try {
       const page = Number(req.query.page) || 1;
-      const limit = Number(req.query.limit) || 1000;
+      const limit = Number(req.query.limit) || 10000;
       const offset = (page - 1) * limit;
       const sortby = req.query.sortby || "create_at";
-      console.log(req.query);
       const sort = req.query.sort || "ASC";
       const result = await selectAllPortfolio(limit, offset, sortby, sort);
       const {
