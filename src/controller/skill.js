@@ -1,9 +1,11 @@
 const {
   selectAllSkill,
+  selectSkill,
   insertSkill,
   deleteSkill,
   countData,
   findId,
+  findWorkerId,
 } = require("../model/skill");
 const { v4: uuidv4 } = require("uuid");
 const commonHelper = require("../helper/common");
@@ -38,6 +40,20 @@ const skillController = {
     } catch (error) {
       console.log(error);
     }
+  },
+
+    getDetailSkill: async (req, res) => {
+    const workerid = String(req.params.id);
+    // console.log(req.params);
+    // const { rowCount } = await findWorkerId(workerid);
+    // if (!rowCount) {
+    //   res.json({ message: "ID is Not Found" });
+    // }
+    selectSkill(workerid)
+      .then((result) => {
+        commonHelper.response(res, result.rows, 200, "get data success");
+      })
+      .catch((err) => res.send(err));
   },
 
   createSkill: async (req, res) => {

@@ -44,6 +44,18 @@ const findId = (portfolio_id) => {
   );
 };
 
+const findWorkerId = (workerid) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(`SELECT workerid FROM portfolio WHERE workerid='${workerid}'`, (error, result) => {
+      if (!error) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+    })
+  );
+};
+
 module.exports = {
   selectAllPortfolio,
   selectPortfolio,
@@ -52,4 +64,5 @@ module.exports = {
   deletePortfolio,
   countData,
   findId,
+  findWorkerId,
 };

@@ -6,6 +6,10 @@ const selectAllSkill = (limit, offset, sortby, sort) => {
   );
 };
 
+const selectSkill = (workerid) => {
+  return Pool.query(`SELECT * FROM skill WHERE workerid='${workerid}'`);
+};
+
 const insertSkill = (data) => {
   const { skill_id, skill_name, workerid } = data;
   return Pool.query(`INSERT INTO skill(skill_id,skill_name,workerid) VALUES('${skill_id}','${skill_name}','${workerid}')`);
@@ -31,11 +35,25 @@ const findId = (skill_id) => {
   );
 };
 
+const findWorkerId = (workerid) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(`SELECT workerid FROM portfolio WHERE workerid='${workerid}'`, (error, result) => {
+      if (!error) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+    })
+  );
+};
+
 
 module.exports = {
   selectAllSkill,
+  selectSkill,
   insertSkill,
   deleteSkill,
   countData,
   findId,
+  findWorkerId,
 };

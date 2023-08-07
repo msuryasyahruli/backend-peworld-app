@@ -149,10 +149,10 @@ const workerController = {
   },
   getDetailWorker: async (req, res) => {
     const id = String(req.params.id);
-    const { rowCount } = await findId(id);
-    if (!rowCount) {
-      return res.json({ message: "ID Not Found" });
-    }
+    // const { rowCount } = await findId(id);
+    // if (!rowCount) {
+    //   return res.json({ message: "ID Not Found" });
+    // }
     selectWorker(id)
       .then((result) => {
         commonHelper.response(

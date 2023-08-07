@@ -5,7 +5,7 @@ const upload = require("../middleware/upload");
 
 router
   .get("/", portfolioController.getAllPortfolio)
-  .get("/:workerid", portfolioController.getDetailPortfolio)
+  .get("/:id", portfolioController.getDetailPortfolio)
   .post("/", upload, portfolioController.createPortfolio)
   .put("/:id", upload, portfolioController.updatePortfolio)
   .delete("/:id", portfolioController.deletePortfolio);

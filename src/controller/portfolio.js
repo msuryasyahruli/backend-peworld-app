@@ -6,6 +6,7 @@ const {
   deletePortfolio,
   countData,
   findId,
+  findWorkerId,
 } = require("../model/portfolio");
 const { v4: uuidv4 } = require("uuid");
 const commonHelper = require("../helper/common");
@@ -45,11 +46,11 @@ const portfolioController = {
 
   getDetailPortfolio: async (req, res) => {
     const workerid = String(req.params.id);
-    const { rowCount } = await findId(workerid);
-    console.log(workerid);
-    if (!rowCount) {
-      res.json({ message: "ID is Not Found" });
-    }
+    // console.log(req.params);
+    // const { rowCount } = await findWorkerId(workerid);
+    // if (!rowCount) {
+    //   res.json({ message: "ID is Not Found" });
+    // }
     selectPortfolio(workerid)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "get data success");

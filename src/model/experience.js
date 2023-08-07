@@ -6,6 +6,10 @@ const selectAllExp = (limit, offset, sortby, sort) => {
   );
 };
 
+const selectExp = (workerid) => {
+  return Pool.query(`SELECT * FROM exp WHERE workerid='${workerid}'`);
+};
+
 const insertExp = (data) => {
   const {
     exp_id,
@@ -48,11 +52,25 @@ const findId = (exp_id) => {
   );
 };
 
+const findWorkerId = (workerid) => {
+  return new Promise((resolve, reject) =>
+    Pool.query(`SELECT workerid FROM portfolio WHERE workerid='${workerid}'`, (error, result) => {
+      if (!error) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+    })
+  );
+};
+
 module.exports = {
   selectAllExp,
+  selectExp,
   insertExp,
   updateExp,
   deleteExp,
   countData,
   findId,
+  findWorkerId,
 };

@@ -5,6 +5,7 @@ const expController = require("../controller/experience");
 
 router
   .get("/", expController.getAllExp)
+  .get("/:workerid", expController.getDetailExp)
   .post("/", expController.createExp)
   .put("/:id", expController.updateExp)
   .delete("/:id", expController.deleteExp);

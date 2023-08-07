@@ -1,10 +1,12 @@
 const {
   selectAllExp,
+  selectExp,
   insertExp,
   updateExp,
   deleteExp,
   countData,
   findId,
+  findWorkerId,
 } = require("../model/experience");
 const { v4: uuidv4 } = require("uuid");
 const commonHelper = require("../helper/common");
@@ -39,6 +41,20 @@ const expController = {
     } catch (error) {
       console.log(error);
     }
+  },
+
+  getDetailExp: async (req, res) => {
+    const workerid = String(req.params.workerid);
+    // console.log(workerid);
+    // const { rowCount } = await findWorkerId(workerid);
+    // if (!rowCount) {
+    //   res.json({ message: "ID is Not Found" });
+    // }
+    selectExp(workerid)
+      .then((result) => {
+        commonHelper.response(res, result.rows, 200, "get data success");
+      })
+      .catch((err) => res.send(err));
   },
 
   createExp: async (req, res) => {

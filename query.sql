@@ -5,14 +5,16 @@ CREATE DATABASE peworld;
 CREATE TABLE
     worker(
         worker_id VARCHAR PRIMARY KEY NOT NULL,
-        worker_name VARCHAR(255),
-        worker_email VARCHAR(255),
-        worker_phone VARCHAR(255),
-        worker_password VARCHAR(255),
-        worker_province VARCHAR(255),
-        worker_city VARCHAR(255),
-        worker_workplace VARCHAR(255),
-        worker_description VARCHAR(255)
+        worker_name VARCHAR,
+        worker_email VARCHAR,
+        worker_phone VARCHAR,
+        worker_password VARCHAR,
+        worker_jobdesk VARCHAR,
+        worker_photo VARCHAR,
+        worker_province VARCHAR,
+        worker_city VARCHAR,
+        worker_workplace VARCHAR,
+        worker_description VARCHAR
     );
 
 INSERT INTO
@@ -21,7 +23,9 @@ INSERT INTO
         worker_name,
         worker_email,
         worker_phone,
-        worker_password
+        worker_password,
+        worker_jobdesk,
+        worker_photo
     )
 VALUES (
         '1',
@@ -47,6 +51,8 @@ SELECT *
 FROM worker
 WHERE
     worker_id = 'b0a3b0da-0dfb-4578-8d36-f1f0382f6e2e';
+
+select skill.*,worker.* from skill join worker on skill.workerid = worker.worker_id;
 
 ------------------------------------------------------------
 
