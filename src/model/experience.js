@@ -22,9 +22,9 @@ const insertExp = (data) => {
 };
 
 const updateExp = (data) => {
-  const {exp_id,position,company_name,working_start,working_end,description,workerid} = data;
+  const {exp_id,position,company_name,working_start,working_end,description} = data;
   return Pool.query(
-    `UPDATE exp SET position='${position}', company_name='${company_name}', working_start='${working_start}', working_end='${working_end}', description='${description}', workerid='${workerid}' WHERE exp_id='${exp_id}'`
+    `UPDATE exp SET position='${position}', company_name='${company_name}', working_start='${working_start}', working_end='${working_end}', description='${description}' WHERE exp_id='${exp_id}'`
   );
 };
 

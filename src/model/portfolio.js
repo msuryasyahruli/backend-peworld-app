@@ -6,21 +6,21 @@ const selectAllPortfolio = (limit, offset, sortby, sort) => {
   );
 };
 
-const selectPortfolio = (portfolio_id) => {
-  return Pool.query(`SELECT * FROM portfolio WHERE portfolio_id='${portfolio_id}'`);
+const selectPortfolio = (workerid) => {
+  return Pool.query(`SELECT * FROM portfolio WHERE workerid='${workerid}'`);
 };
 
 const insertPortfolio = (data) => {
-  const { portfolio_id, link_repo, tipe, app_name, workerid } = data;
+  const { portfolio_id, link_repo, tipe, app_name, photo, workerid } = data;
   return Pool.query(
-    `INSERT INTO Portfolio(portfolio_id, link_repo, tipe, app_name, workerid) VALUES('${portfolio_id}','${link_repo}','${tipe}','${app_name}','${workerid}')`
+    `INSERT INTO Portfolio(portfolio_id, link_repo, tipe, app_name, photo, workerid) VALUES('${portfolio_id}','${link_repo}','${tipe}','${app_name}','${photo}','${workerid}')`
   );
 };
 
 const updatePortfolio = (data) => {
-  const { portfolio_id, link_repo, tipe, app_name, workerid } = data;
+  const { portfolio_id, link_repo, tipe, app_name } = data;
   return Pool.query(
-    `UPDATE Portfolio SET link_repo='${link_repo}', tipe='${tipe}', app_name='${app_name}', workerid='${workerid}' WHERE portfolio_id='${portfolio_id}'`
+    `UPDATE Portfolio SET link_repo='${link_repo}', tipe='${tipe}', app_name='${app_name}' WHERE portfolio_id='${portfolio_id}'`
   );
 };
 

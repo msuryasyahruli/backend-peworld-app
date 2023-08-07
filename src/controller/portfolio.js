@@ -9,6 +9,7 @@ const {
 } = require("../model/portfolio");
 const { v4: uuidv4 } = require("uuid");
 const commonHelper = require("../helper/common");
+const cloudinary = require("../middleware/cloudinary");
 
 const portfolioController = {
   getAllPortfolio: async (req, res) => {
@@ -43,12 +44,13 @@ const portfolioController = {
   },
 
   getDetailPortfolio: async (req, res) => {
-    const portfolio_id = String(req.params.id);
-    const { rowCount } = await findId(portfolio_id);
+    const workerid = String(req.params.id);
+    const { rowCount } = await findId(workerid);
+    console.log(workerid);
     if (!rowCount) {
       res.json({ message: "ID is Not Found" });
     }
-    selectPortfolio(portfolio_id)
+    selectPortfolio(workerid)
       .then((result) => {
         commonHelper.response(res, result.rows, 200, "get data success");
       })
@@ -56,6 +58,11 @@ const portfolioController = {
   },
 
   createPortfolio: async (req, res) => {
+    let photo = null;
+        if (req.file) {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            photo = result.secure_url;
+        }
     const { link_repo, tipe, app_name, workerid } = req.body;
     const portfolio_id = uuidv4();
     const data = {
@@ -63,6 +70,7 @@ const portfolioController = {
       link_repo,
       tipe,
       app_name,
+      photo,
       workerid,
     };
     insertPortfolio(data)
@@ -74,8 +82,10 @@ const portfolioController = {
 
   updatePortfolio: async (req, res) => {
     try {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      const photo = result.secure_url;
       const portfolio_id = String(req.params.id);
-      const { link_repo, tipe, app_name, workerid } = req.body;
+      const { link_repo, tipe, app_name } = req.body;
       const { rowCount } = await findId(portfolio_id);
       if (!rowCount) {
         res.json({ message: "ID is Not Found" });
@@ -84,8 +94,8 @@ const portfolioController = {
         portfolio_id,
         link_repo,
         tipe,
+        photo,
         app_name,
-        workerid,
       };
       updatePortfolio(data)
         .then((result) =>

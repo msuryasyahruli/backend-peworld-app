@@ -79,7 +79,6 @@ const expController = {
         working_start,
         working_end,
         description,
-        workerid,
       } = req.body;
       const { rowCount } = await findId(exp_id);
       if (!rowCount) {
@@ -92,7 +91,6 @@ const expController = {
         working_start,
         working_end,
         description,
-        workerid,
       };
       updateExp(data)
         .then((result) =>
