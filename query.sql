@@ -52,7 +52,8 @@ FROM worker
 WHERE
     worker_id = 'b0a3b0da-0dfb-4578-8d36-f1f0382f6e2e';
 
-select skill.*,worker.* from skill join worker on skill.workerid = worker.worker_id;
+SELECT skill.*, worker.worker_name, worker.worker_jobdesk, worker.worker_province, worker.worker_city FROM skill join worker ON skill.workerid = worker.worker_id;
+SELECT skill.*, worker.* FROM skill join worker ON skill.workerid = worker.worker_id;
 
 ------------------------------------------------------------
 

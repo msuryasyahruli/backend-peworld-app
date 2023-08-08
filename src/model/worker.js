@@ -1,9 +1,9 @@
 const Pool = require("../config/db");
 
 const createUser = (data) => {
-  const { id, email, name, phone, passwordHash } = data;
+  const { id, email, name, phone, passwordHash, role } = data;
   return Pool.query(
-    `INSERT INTO worker( worker_id, worker_name, worker_email, worker_phone, worker_password ) VALUES('${id}','${name}','${email}','${phone}','${passwordHash}')`
+    `INSERT INTO worker( worker_id, worker_name, worker_email, worker_phone, worker_password, worker_role ) VALUES('${id}','${name}','${email}','${phone}','${passwordHash}','${role}')`
   );
 };
 
@@ -18,9 +18,9 @@ const selectWorker = (id) => {
 };
 
 const updateWorker = (data) => {
-  const { id, name, province, city, workplace, description } = data;
+  const { id, name, province, city, workplace, description, jobdesk } = data;
   return Pool.query(
-    `UPDATE worker SET worker_name='${name}', worker_province='${province}', worker_city='${city}', worker_workplace='${workplace}', worker_description='${description}' WHERE worker_id='${id}'`
+    `UPDATE worker SET worker_name='${name}', worker_province='${province}', worker_city='${city}', worker_workplace='${workplace}', worker_description='${description}', worker_jobdesk='${jobdesk}' WHERE worker_id='${id}'`
   );
 };
 

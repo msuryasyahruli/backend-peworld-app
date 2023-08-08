@@ -83,8 +83,8 @@ const portfolioController = {
 
   updatePortfolio: async (req, res) => {
     try {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      const photo = result.secure_url;
+      // const result = await cloudinary.uploader.upload(req.file.path);
+      // const photo = result.secure_url;
       const portfolio_id = String(req.params.id);
       const { link_repo, tipe, app_name } = req.body;
       const { rowCount } = await findId(portfolio_id);
@@ -95,7 +95,6 @@ const portfolioController = {
         portfolio_id,
         link_repo,
         tipe,
-        photo,
         app_name,
       };
       updatePortfolio(data)

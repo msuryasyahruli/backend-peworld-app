@@ -29,6 +29,7 @@ const workerController = {
         name,
         phone,
         passwordHash,
+        role: "worker"
       };
       createUser(data)
         .then((result) => {
@@ -41,6 +42,7 @@ const workerController = {
       console.log(error);
     }
   },
+  
   loginUser: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -68,6 +70,7 @@ const workerController = {
       console.log(err);
     }
   },
+
   profile: async (req, res) => {
     const email = req.payload.email;
     const {
@@ -88,6 +91,7 @@ const workerController = {
     };
     commonHelper.response(res, result, 200, "Token has refreshed");
   },
+
   updateWorker: async (req, res) => {
     try {
       const PORT = process.env.PORT || 2525;
@@ -95,7 +99,7 @@ const workerController = {
       const id = String(req.params.id);
       // const result = await cloudinary.uploader.upload(req.file.path);
       // const photo = result.secure_url;
-      const { name, province, city, workplace, description } = req.body;
+      const { name, jobdesk, province, city, workplace, description } = req.body;
       const { rowCount } = await findId(id);
       if (!rowCount) {
         res.json({ message: "ID is Not Found" });
@@ -103,6 +107,7 @@ const workerController = {
       const data = {
         id,
         name,
+        jobdesk,
         province,
         city,
         workplace,
@@ -117,6 +122,7 @@ const workerController = {
       console.log(error);
     }
   },
+
   getAllWorker: async (req, res) => {
     try {
       const page = Number(req.query.page) || 1;
@@ -147,6 +153,7 @@ const workerController = {
       console.log(error);
     }
   },
+
   getDetailWorker: async (req, res) => {
     const id = String(req.params.id);
     // const { rowCount } = await findId(id);
