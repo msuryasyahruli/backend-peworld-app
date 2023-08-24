@@ -14,7 +14,8 @@ CREATE TABLE
         worker_province VARCHAR,
         worker_city VARCHAR,
         worker_workplace VARCHAR,
-        worker_description VARCHAR
+        worker_description VARCHAR,
+        worker_role VARCHAR
     );
 
 INSERT INTO
