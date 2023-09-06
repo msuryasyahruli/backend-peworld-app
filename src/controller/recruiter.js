@@ -1,6 +1,7 @@
 const {
   createRecruiter,
   updateRecruiter,
+  selectRecruiter,
   findEmail,
   findId,
   countData,
@@ -105,8 +106,14 @@ const recruiterController = {
       const recruiter_id = String(req.params.id);
       // const result = await cloudinary.uploader.upload(req.file.path);
       // const photo = result.secure_url;
-      const { recruiter_province, recruiter_city, company_email, company_field, company_phone, company_info } =
-        req.body;
+      const {
+        recruiter_province,
+        recruiter_city,
+        company_email,
+        company_field,
+        company_phone,
+        company_info,
+      } = req.body;
       const { rowCount } = await findId(recruiter_id);
       if (!rowCount) {
         res.json({ message: "ID is Not Found" });
@@ -161,23 +168,23 @@ const recruiterController = {
   //     }
   //   },
 
-  //   getDetailWorker: async (req, res) => {
-  //     const id = String(req.params.id);
-  //     // const { rowCount } = await findId(id);
-  //     // if (!rowCount) {
-  //     //   return res.json({ message: "ID Not Found" });
-  //     // }
-  //     selectWorker(id)
-  //       .then((result) => {
-  //         commonHelper.response(
-  //           res,
-  //           result.rows,
-  //           200,
-  //           "get data success from database"
-  //         );
-  //       })
-  //       .catch((err) => res.send(err));
-  //   },
+  getDetailRecruiter: async (req, res) => {
+    const recruiter_id = String(req.params.id);
+    // const { rowCount } = await findId(id);
+    // if (!rowCount) {
+    //   return res.json({ message: "ID Not Found" });
+    // }
+    selectRecruiter(recruiter_id)
+      .then((result) => {
+        commonHelper.response(
+          res,
+          result.rows,
+          200,
+          "get data success from database"
+        );
+      })
+      .catch((err) => res.send(err));
+  },
 };
 
 module.exports = recruiterController;

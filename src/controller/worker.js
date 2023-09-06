@@ -16,20 +16,21 @@ const commonHelper = require("../helper/common");
 const workerController = {
   registerUser: async (req, res) => {
     try {
-      const { name, email, phone, password } = req.body;
-      const { rowCount } = await findEmail(email);
+      const { worker_name, worker_email, worker_phone, worker_password } =
+        req.body;
+      const { rowCount } = await findEmail(worker_email);
       if (rowCount) {
         return res.json({ messege: "Email is already taken" });
       }
-      const passwordHash = bcrypt.hashSync(password);
-      const id = uuidv4();
+      const passwordHash = bcrypt.hashSync(worker_password);
+      const worker_id = uuidv4();
       const data = {
-        id,
-        email,
-        name,
-        phone,
+        worker_id,
+        worker_name,
+        worker_email,
+        worker_phone,
         passwordHash,
-        role: "worker"
+        role: "worker",
       };
       createUser(data)
         .then((result) => {
@@ -42,18 +43,18 @@ const workerController = {
       console.log(error);
     }
   },
-  
+
   loginUser: async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { worker_email, worker_password } = req.body;
       const {
         rows: [worker],
-      } = await findEmail(email);
+      } = await findEmail(worker_email);
       if (!worker) {
         return res.json({ messege: "Email is incorrect" });
       }
       const validPassword = bcrypt.compareSync(
-        password,
+        worker_password,
         worker.worker_password
       );
       if (!validPassword) {
@@ -76,14 +77,14 @@ const workerController = {
     const {
       rows: [worker],
     } = await findEmail(email);
-    delete worker.password;
+    delete worker.worker_password;
     commonHelper.response(res, worker, 201);
   },
   refreshToken: (req, res) => {
     const RefreshToken = req.body.refreshToken;
     const decoded = jwt.verify(RefreshToken, process.env.SECRETE_KEY_JWT);
     const payload = {
-      email: decoded.email,
+      email: decoded.worker_email,
     };
     const result = {
       token: authHelper.generateToken(payload),
@@ -96,22 +97,29 @@ const workerController = {
     try {
       const PORT = process.env.PORT || 2525;
       const DB_HOST = process.env.PGHOST || "localhost";
-      const id = String(req.params.id);
+      const worker_id = String(req.params.id);
       // const result = await cloudinary.uploader.upload(req.file.path);
       // const photo = result.secure_url;
-      const { name, jobdesk, province, city, workplace, description } = req.body;
-      const { rowCount } = await findId(id);
+      const {
+        worker_name,
+        worker_jobdesk,
+        worker_province,
+        worker_city,
+        worker_workplace,
+        worker_description,
+      } = req.body;
+      const { rowCount } = await findId(worker_id);
       if (!rowCount) {
         res.json({ message: "ID is Not Found" });
       }
       const data = {
-        id,
-        name,
-        jobdesk,
-        province,
-        city,
-        workplace,
-        description,
+        worker_id,
+        worker_name,
+        worker_jobdesk,
+        worker_province,
+        worker_city,
+        worker_workplace,
+        worker_description,
       };
       updateWorker(data)
         .then((result) =>
@@ -125,29 +133,14 @@ const workerController = {
 
   getAllWorker: async (req, res) => {
     try {
-      const page = Number(req.query.page) || 1;
-      const limit = Number(req.query.limit) || 1000;
-      const offset = (page - 1) * limit;
-      const sortby = req.query.sortby || "worker_name";
+      const sortby = req.query.sortby || "worker_id";
       const sort = req.query.sort || "ASC";
-      const result = await selectAllWorker(limit, offset, sortby, sort);
-      const {
-        rows: [count],
-      } = await countData();
-      const totalData = parseInt(count.count);
-      const totalPage = Math.ceil(totalData / limit);
-      const pagination = {
-        currentPage: page,
-        limit: limit,
-        totalData: totalData,
-        totalPage: totalPage,
-      };
+      const result = await selectAllWorker(sortby, sort);
       commonHelper.response(
         res,
         result.rows,
         200,
-        "get data success",
-        pagination
+        "get data success"
       );
     } catch (error) {
       console.log(error);
@@ -155,12 +148,12 @@ const workerController = {
   },
 
   getDetailWorker: async (req, res) => {
-    const id = String(req.params.id);
+    const worker_id = String(req.params.id);
     // const { rowCount } = await findId(id);
     // if (!rowCount) {
     //   return res.json({ message: "ID Not Found" });
     // }
-    selectWorker(id)
+    selectWorker(worker_id)
       .then((result) => {
         commonHelper.response(
           res,

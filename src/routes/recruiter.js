@@ -8,5 +8,8 @@ router
   .post("/login", recruiterController.loginUser)
   .get("/profile", protect, recruiterController.profile)
   .put("/:id", recruiterController.updateRecruiter)
+  .get("/:id", recruiterController.getDetailRecruiter)
+  .post("/refreshToken", recruiterController.refreshToken);
+
 
 module.exports = router;

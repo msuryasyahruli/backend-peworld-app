@@ -31,6 +31,10 @@ const updateRecruiter = (data) => {
   );
 };
 
+const selectRecruiter = (recruiter_id) => {
+  return Pool.query(`SELECT * FROM recruiter WHERE recruiter_id='${recruiter_id}'`);
+};
+
 const findEmail = (recruiter_email) => {
   return new Promise((resolve, reject) =>
     Pool.query(
@@ -68,6 +72,7 @@ const countData = () => {
 module.exports = {
   createRecruiter,
   updateRecruiter,
+  selectRecruiter,
   findEmail,
   findId,
   countData,

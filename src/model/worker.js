@@ -1,26 +1,41 @@
 const Pool = require("../config/db");
 
 const createUser = (data) => {
-  const { id, email, name, phone, passwordHash, role } = data;
+  const {
+    worker_id,
+    worker_name,
+    worker_email,
+    worker_phone,
+    passwordHash,
+    role,
+  } = data;
   return Pool.query(
-    `INSERT INTO worker( worker_id, worker_name, worker_email, worker_phone, worker_password, worker_role ) VALUES('${id}','${name}','${email}','${phone}','${passwordHash}','${role}')`
+    `INSERT INTO worker( worker_id, worker_name, worker_email, worker_phone, worker_password, worker_role ) VALUES('${worker_id}','${worker_name}','${worker_email}','${worker_phone}','${passwordHash}','${role}')`
   );
 };
 
-const selectAllWorker = (limit, offset, sortby, sort) => {
+const selectAllWorker = (sortby, sort) => {
   return Pool.query(
-    `SELECT * FROM worker ORDER BY ${sortby} ${sort} LIMIT ${limit} OFFSET ${offset}`
+    `SELECT * FROM worker ORDER BY ${sortby} ${sort}`
   );
 };
 
-const selectWorker = (id) => {
-  return Pool.query(`SELECT * FROM worker WHERE worker_id='${id}'`);
+const selectWorker = (worker_id) => {
+  return Pool.query(`SELECT * FROM worker WHERE worker_id='${worker_id}'`);
 };
 
 const updateWorker = (data) => {
-  const { id, name, province, city, workplace, description, jobdesk } = data;
+  const {
+    worker_id,
+    worker_name,
+    worker_province,
+    worker_city,
+    worker_workplace,
+    worker_description,
+    worker_jobdesk,
+  } = data;
   return Pool.query(
-    `UPDATE worker SET worker_name='${name}', worker_province='${province}', worker_city='${city}', worker_workplace='${workplace}', worker_description='${description}', worker_jobdesk='${jobdesk}' WHERE worker_id='${id}'`
+    `UPDATE worker SET worker_name='${worker_name}', worker_province='${worker_province}', worker_city='${worker_city}', worker_workplace='${worker_workplace}', worker_description='${worker_description}', worker_jobdesk='${worker_jobdesk}' WHERE worker_id='${worker_id}'`
   );
 };
 
@@ -39,10 +54,10 @@ const findEmail = (email) => {
   );
 };
 
-const findId = (id) => {
+const findId = (worker_id) => {
   return new Promise((resolve, reject) =>
     Pool.query(
-      `SELECT worker_id FROM worker WHERE worker_id='${id}'`,
+      `SELECT worker_id FROM worker WHERE worker_id='${worker_id}'`,
       (error, result) => {
         if (!error) {
           resolve(result);
