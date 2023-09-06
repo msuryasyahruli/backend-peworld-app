@@ -9,7 +9,7 @@ const xss = require("xss-clean");
 // const multer = require("multer")
 // const upload = multer()
 const mainRouter = require("./src/routes/index");
-const port = 2525;
+const port = 4000;
 
 app.use(express.json());
 // app.use(morgan("dev"));
