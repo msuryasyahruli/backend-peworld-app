@@ -12,9 +12,38 @@ CREATE TABLE worker(
     worker_city VARCHAR,
     worker_workplace VARCHAR,
     worker_description VARCHAR,
-    worker_role VARCHAR
+    worker_role VARCHAR,
+    verify text not null,
+    updated_on timestamp default CURRENT_TIMESTAMP not null,
 );
 
+CREATE  FUNCTION update_updated_on_worker()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_on = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+
+CREATE TRIGGER update_worker_updated_on
+    BEFORE UPDATE
+    ON
+        worker
+    FOR EACH ROW
+EXECUTE PROCEDURE update_updated_on_worker();
+
+
+create table worker_verification (
+    id text not null ,
+    worker_id text ,
+    token text ,
+    created_on timestamp default CURRENT_TIMESTAMP not null	,
+    constraint 	worker foreign key(worker_id) 	references 	worker(worker_id) ON DELETE CASCADE,
+primary key (id)
+);
+
+---------------------------------------------------------------------------------------------------------------------||
 CREATE TABLE skill(
     skill_id VARCHAR PRIMARY KEY NOT NULL,
     skill_name VARCHAR(255),
@@ -44,6 +73,7 @@ CREATE TABLE portfolio(
     workerid VARCHAR,
     FOREIGN KEY (workerid) REFERENCES worker(worker_id)
 );
+---------------------------------------------------------------------------------------------------------------------||
 
 CREATE TABLE recruiter (
     recruiter_id VARCHAR PRIMARY KEY NOT NULL,
@@ -58,5 +88,33 @@ CREATE TABLE recruiter (
     company_field VARCHAR,
     company_phone VARCHAR,
     company_info VARCHAR,
-    role VARCHAR
+    role VARCHAR,
+    verify TEXT not null,
+    updated_on TIMESTAMP default CURRENT_TIMESTAMP not null,
+);
+
+CREATE  FUNCTION update_updated_on_recruiter()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_on = now();
+    RETURN NEW;
+END;
+$$ language 'plpgsql';
+
+
+CREATE TRIGGER update_recruiter_updated_on
+    BEFORE UPDATE
+    ON
+        recruiter
+    FOR EACH ROW
+EXECUTE PROCEDURE update_updated_on_recruiter();
+
+
+create table recruiter_verification (
+    id text not null ,
+    recruiter_id text ,
+    token text ,
+    created_on timestamp default CURRENT_TIMESTAMP not null	,
+    constraint 	recruiter foreign key(recruiter_id) 	references 	recruiter(recruiter_id) ON DELETE CASCADE,
+primary key (id)
 );

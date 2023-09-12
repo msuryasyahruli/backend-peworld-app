@@ -6,6 +6,7 @@ const { protect } = require("../middleware/auth");
 router
   .post("/register", recruiterController.registerUser)
   .post("/login", recruiterController.loginUser)
+  .get("/verify",recruiterController.VerifyAccount)
   .get("/profile", protect, recruiterController.profile)
   .put("/:id", recruiterController.updateRecruiter)
   .get("/:id", recruiterController.getDetailRecruiter)
