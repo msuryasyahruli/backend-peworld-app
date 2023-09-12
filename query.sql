@@ -13,8 +13,8 @@ CREATE TABLE worker(
     worker_workplace VARCHAR,
     worker_description VARCHAR,
     worker_role VARCHAR,
-    verify text not null,
-    updated_on timestamp default CURRENT_TIMESTAMP not null,
+    verify TEXT NOT NULL,
+    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE  FUNCTION update_updated_on_worker()
@@ -89,8 +89,8 @@ CREATE TABLE recruiter (
     company_phone VARCHAR,
     company_info VARCHAR,
     role VARCHAR,
-    verify TEXT not null,
-    updated_on TIMESTAMP default CURRENT_TIMESTAMP not null,
+    verify TEXT NOT NULL,
+    updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
 CREATE  FUNCTION update_updated_on_recruiter()

@@ -60,36 +60,23 @@ const workerController = {
       const { worker_name, worker_phone, worker_email, worker_password } =
         req.body;
       const checkEmail = await findEmail(worker_email);
-
       try {
         if (checkEmail.rowCount == 1) throw "Email already used";
       } catch (error) {
         delete checkEmail.rows[0].worker_password;
         return commonHelper.response(res, null, 403, error);
       }
-
-      // users
       const saltRounds = 10;
       const passwordHash = bcrypt.hashSync(worker_password, saltRounds);
       const worker_id = uuidv4().toLocaleLowerCase();
-
-      // verification
       const verify = "false";
-
       const users_verification_id = uuidv4().toLocaleLowerCase();
-      // const worker_id = id;
       const token = crypto.randomBytes(64).toString("hex");
-
       // url localhost
       const url = `${process.env.BASE_URL}worker/verify?id=${worker_id}&token=${token}`;
-
       // url deployment
       // const url = `${process.env.BASE_URL}/verification?type=email&id=${users_id}&token=${token}`;
-
-      //send email
       await sendEmail(worker_email, "Verify Email", url);
-
-      // insert db table users
       await createUser(
         worker_id,
         worker_name,
@@ -98,10 +85,7 @@ const workerController = {
         passwordHash,
         verify
       );
-
-      // insert db table verification
       await createWorkerVerification(users_verification_id, worker_id, token);
-
       commonHelper.response(
         res,
         null,
@@ -118,10 +102,8 @@ const workerController = {
     try {
       const queryWorkerId = req.query.id;
       const queryToken = req.query.token;
-
       if (typeof queryWorkerId === "string" && typeof queryToken === "string") {
         const checkUsersVerify = await setId(queryWorkerId);
-
         if (checkUsersVerify.rowCount == 0) {
           return commonHelper.response(
             res,
@@ -130,8 +112,6 @@ const workerController = {
             "Error users has not found"
           );
         }
-
-        // console.log(checkUsersVerify);
         if (checkUsersVerify.rows[0].verify != "false") {
           return commonHelper.response(
             res,
@@ -140,9 +120,7 @@ const workerController = {
             "Users has been verified"
           );
         }
-
         const result = await checkWorkerVerification(queryWorkerId, queryToken);
-
         if (result.rowCount == 0) {
           return commonHelper.response(
             res,
