@@ -195,14 +195,6 @@ const recruiterController = {
     try {
       const { recruiter_email, recruiter_password } = req.body;
       const {
-        rows: [verify],
-      } = await cekRecruiter(recruiter_email);
-      if (verify.verify === "false") {
-        return res.json({
-          message: "user is unverify",
-        });
-      }
-      const {
         rows: [user],
       } = await findEmail(recruiter_email);
       if (!user) {
@@ -214,6 +206,14 @@ const recruiterController = {
       );
       if (!isValidPassword) {
         return commonHelper.response(res, null, 403, "Password is invalid");
+      }
+      const {
+        rows: [verify],
+      } = await cekRecruiter(recruiter_email);
+      if (verify.verify === "false") {
+        return res.json({
+          message: "user is unverify",
+        });
       }
       delete user.recruiter_password;
       const payload = {

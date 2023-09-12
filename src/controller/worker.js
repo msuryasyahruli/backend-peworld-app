@@ -179,15 +179,6 @@ const workerController = {
     try {
       const { worker_email, worker_password } = req.body;
       const {
-        rows: [verify],
-      } = await cekWorker(worker_email);
-      // console.log(verify.verify);
-      if (verify.verify === "false") {
-        return res.json({
-          message: "user is unverify",
-        });
-      }
-      const {
         rows: [user],
       } = await findEmail(worker_email);
       if (!user) {
@@ -197,10 +188,16 @@ const workerController = {
         worker_password,
         user.worker_password
       );
-      // console.log(isValidPassword);
-
       if (!isValidPassword) {
         return commonHelper.response(res, null, 403, "Password is invalid");
+      }
+      const {
+        rows: [verify],
+      } = await cekWorker(worker_email);
+      if (verify.verify === "false") {
+        return res.json({
+          message: "user is unverify",
+        });
       }
       delete user.worker_password;
       const payload = {
@@ -209,7 +206,6 @@ const workerController = {
       };
       user.token = authHelper.generateToken(payload);
       user.refreshToken = authHelper.refreshToken(payload);
-
       commonHelper.response(res, user, 201, "login is successful");
     } catch (error) {
       console.log(error);

@@ -9,7 +9,7 @@
     <br />
     <a href="">View Demo</a>
     ·
-    <a href="">Api Demo</a>
+    <a href="https://backend-peworld.vercel.app/">Api Demo</a>
   </p>
 </p>
 
@@ -102,7 +102,7 @@ API endpoint list are also available as published postman documentation
 
 ## Related Project
 
-:rocket: [`Backend Hiring App`]()
+:rocket: [`Backend Hiring App`](https://github.com/msuryasyahruli/backend-peworld-web)
 
 :rocket: [`Frontend Hiring App`]()
 

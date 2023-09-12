@@ -83,6 +83,7 @@ CREATE TABLE recruiter (
     recruiter_phone VARCHAR,
     recruiter_province VARCHAR,
     recruiter_city VARCHAR,
+    recruiter_position VARCHAR,
     company_name VARCHAR,
     company_email VARCHAR,
     company_field VARCHAR,
@@ -117,4 +118,15 @@ create table recruiter_verification (
     created_on timestamp default CURRENT_TIMESTAMP not null	,
     constraint 	recruiter foreign key(recruiter_id) 	references 	recruiter(recruiter_id) ON DELETE CASCADE,
 primary key (id)
+);
+
+CREATE TABLE hiring (
+    hiring_id VARCHAR NOT NULL PRIMARY KEY,
+    hiring_title VARCHAR,
+    hiring_message TEXT,
+    worker_id VARCHAR,
+    worker_name VARCHAR,
+    worker_email VARCHAR,
+    recruiter_id VARCHAR,
+    company_name VARCHAR
 );
