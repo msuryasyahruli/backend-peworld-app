@@ -7,7 +7,7 @@
   <p align="center">
     <a href="https://github.com/msuryasyahruli/backend-peworld-web"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="">View Demo</a>
+    <a href="https://peworld-web-steel.vercel.app/">View Demo</a>
     ·
     <a href="https://backend-peworld.vercel.app/">Api Demo</a>
   </p>
@@ -104,8 +104,8 @@ API endpoint list are also available as published postman documentation
 
 :rocket: [`Backend Hiring App`](https://github.com/msuryasyahruli/backend-peworld-web)
 
-:rocket: [`Frontend Hiring App`]()
+:rocket: [`Frontend Hiring App`](https://github.com/msuryasyahruli/peworld-web)
 
-:rocket: [`Demo Hiring App`]()
+:rocket: [`Demo Hiring App`](https://peworld-web-steel.vercel.app/)
 
 Project link : [https://github.com/msuryasyahruli/backend-peworld-web](https://github.com/msuryasyahruli/backend-peworld-web)
