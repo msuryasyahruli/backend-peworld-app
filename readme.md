@@ -104,7 +104,7 @@ API endpoint list are also available as published postman documentation
 
 :rocket: [`Backend Hiring App`](https://github.com/msuryasyahruli/backend-peworld-web)
 
-:rocket: [`Frontend Hiring App`]()
+:rocket: [`Frontend Hiring App`](https://github.com/msuryasyahruli/peworld-web)
 
 :rocket: [`Demo Hiring App`]()
 

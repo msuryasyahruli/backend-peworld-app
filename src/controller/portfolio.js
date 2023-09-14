@@ -59,11 +59,8 @@ const portfolioController = {
   },
 
   createPortfolio: async (req, res) => {
-    const photo = null;
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      photo = result.secure_url;
-    }
+    const result = await cloudinary.uploader.upload(req.file.path);
+    photo = result.secure_url;
     const { link_repo, tipe, app_name, workerid } = req.body;
     const portfolio_id = uuidv4();
     const data = {
